@@ -15,9 +15,10 @@ OpenAI.api_key = st.secrets["openai"]["api_key"]
 # Initialize the OpenAI client
 client = OpenAI(api_key=OpenAI.api_key)
 
-# Set your Google Slides API credentials
 # Load Google service account info from Streamlit secrets
-google_service_account = st.secrets["google"]["service_account"]
+google_service_account_str = st.secrets["google"]["service_account"]
+google_service_account = json.loads(google_service_account_str)
+
 SCOPES = [
     'https://www.googleapis.com/auth/presentations',
     'https://www.googleapis.com/auth/drive'
