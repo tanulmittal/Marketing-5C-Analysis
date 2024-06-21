@@ -10,7 +10,7 @@ from googleapiclient.discovery import build
 st.set_page_config(page_title="5C Analysis Generator", page_icon="📊")
 
 # Use Streamlit secrets for API keys and credentials
-OpenAI.api_key = st.secrets["openai"]["api_key"]
+OpenAI.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Initialize the OpenAI client
 client = OpenAI(api_key=OpenAI.api_key)
