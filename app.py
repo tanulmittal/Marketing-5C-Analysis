@@ -16,7 +16,7 @@ OpenAI.api_key = st.secrets["openai"]["api_key"]
 client = OpenAI(api_key=OpenAI.api_key)
 
 # Set your Google Slides API credentials
-SERVICE_ACCOUNT_FILE = st.secrets["GOOGLE_SERVICE_ACCOUNT"]
+google_service_account = json.loads(st.secrets["google"]["GOOGLE_SERVICE_ACCOUNT"])
 SCOPES = [
     'https://www.googleapis.com/auth/presentations',
     'https://www.googleapis.com/auth/drive'
