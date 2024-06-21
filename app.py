@@ -2,20 +2,20 @@ import streamlit as st
 from openai import OpenAI
 import os
 import json
-import google.auth
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
-# Set your OpenAI API key
+# Streamlit configuration
 st.set_page_config(page_title="5C Analysis Generator", page_icon="📊")
 
+# Set your OpenAI API key
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+
 # Initialize the OpenAI client
-client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+client = OpenAI(api_key=openai_api_key)
 
-# Load Google service account info from Streamlit secrets
-google_service_account_str = st.secrets["google"]["service_account"]
-google_service_account = json.loads(google_service_account_str)
-
+# Set your Google Slides API credentials
+SERVICE_ACCOUNT_INFO = st.secrets["GOOGLE_SERVICE_ACCOUNT"]
 SCOPES = [
     'https://www.googleapis.com/auth/presentations',
     'https://www.googleapis.com/auth/drive'
@@ -23,8 +23,7 @@ SCOPES = [
 
 # Authenticate and build the Google Slides and Drive services
 credentials = service_account.Credentials.from_service_account_info(
-    google_service_account, scopes=SCOPES)
-
+    SERVICE_ACCOUNT_INFO, scopes=SCOPES)
 slides_service = build('slides', 'v1', credentials=credentials)
 drive_service = build('drive', 'v3', credentials=credentials)
 
@@ -211,17 +210,17 @@ def share_presentation(presentation_id, email):
 
 def main():
     st.title("5C Analysis Generator")
-
+    
     brand_name = st.text_input("Enter the brand name:")
     brand_description = st.text_area("Enter a brief description of the brand:")
     user_email = st.text_input("Enter your Gmail ID for edit access:")
-    default_email = "tanul.mittal40@gmail.com"
-
-    if st.button("Generate 5C Analysis"):
+    
+    if st.button("Generate Presentation"):
         if brand_name and brand_description and user_email:
-            with st.spinner("Generating 5C Analysis..."):
-                presentation_title = f"5C Analysis: {brand_name}"
-                
+            presentation_title = f"5C Analysis: {brand_name}"
+            default_email = "tanul.mittal40@gmail.com"
+            
+            with st.spinner("Generating presentation..."):
                 # Create a new presentation with 6 slides (title + 5Cs)
                 presentation_id = create_presentation_with_slides(presentation_title, num_slides=6)
                 
@@ -231,10 +230,10 @@ def main():
                 
                 # Generate content and insert into slides
                 insert_content_into_slides(presentation_id, brand_name, brand_description)
-
-                st.success("5C Analysis generated successfully!")
-                st.markdown(f"[View Generated Presentation](https://docs.google.com/presentation/d/{presentation_id}/edit)")
-                st.write(f"Edit access granted to: {default_email} and {user_email}")
+            
+            st.success("Presentation generated successfully!")
+            st.markdown(f"[View Presentation](https://docs.google.com/presentation/d/{presentation_id}/edit)")
+            st.write(f"Edit access granted to: {default_email} and {user_email}")
         else:
             st.error("Please fill in all the fields.")
 
