@@ -9,11 +9,8 @@ from googleapiclient.discovery import build
 # Set your OpenAI API key
 st.set_page_config(page_title="5C Analysis Generator", page_icon="📊")
 
-# Use Streamlit secrets for API keys and credentials
-OpenAI.api_key = st.secrets["openai"]["api_key"]
-
 # Initialize the OpenAI client
-client = OpenAI(api_key=OpenAI.api_key)
+client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 # Load Google service account info from Streamlit secrets
 google_service_account_str = st.secrets["google"]["service_account"]
