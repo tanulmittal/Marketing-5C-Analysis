@@ -22,7 +22,7 @@ def generate_content_for_placeholder(placeholder_type, brand_name, brand_descrip
         if c_type == 'Company':
             prompt = f"Write about the brand {brand_name}. Include information about its  mission, values, and key products or services. Write under 120 words"
         elif c_type == 'Customers':
-            prompt = f"Write in bullet points about {brand_name}'s customer demographics. Include information such as age range, gender, income level, interests, and buying behaviors. Write under 120 words. Remove hyphen."
+            prompt = f"Write about {brand_name}'s customer demographics. Include information such as age range, gender, income level, interests, and buying behaviors. Write under 120 words."
         elif c_type == 'Competitors':
             prompt = f"Write about the main competitors of {brand_name}. Explain how they are different or better than {brand_name}. Include information on their strengths, weaknesses, and unique selling propositions. Write under 120 words"
         elif c_type == 'Collaborators':
@@ -58,25 +58,32 @@ def create_html_presentation(brand_name, brand_description):
             }}
             .page {{
                 display: flex;
-                height: 100vh;
-                padding: 20px;
+                width: 1440px;
+                height: 810px;
+                padding: 0;
                 box-sizing: border-box;
+                margin: 0 auto;
             }}
-            .left-div, .right-div {{
+            .left-div {{
                 flex: 1;
-                padding: 20px;
+                padding: 100px;
+            }}
+            .right-div {{
+                width: 720px;
+                height: 810px;
+                padding: 0;
             }}
             .title {{
                 font-family: 'Unbounded', sans-serif;
-                font-size: 24px;
+                font-size: 36px;
                 margin-bottom: 10px;
             }}
             .body-text {{
-                font-size: 14px;
+                font-size: 24px;
             }}
             .image-placeholder {{
                 width: 100%;
-                height: 300px;
+                height: 100%;
                 border: 2px dashed #808080;
                 display: flex;
                 justify-content: center;
