@@ -22,7 +22,7 @@ def generate_content_for_placeholder(placeholder_type, brand_name, brand_descrip
         if c_type == 'Company':
             prompt = f"Write about the brand {brand_name}. Include information about its  mission, values, and key products or services. Write under 120 words"
         elif c_type == 'Customers':
-            prompt = f"Write in bullet points about {brand_name}'s customer demographics. Include information such as age range, gender, income level, interests, and buying behaviors. Write under 120 words."
+            prompt = f"Write in bullet points about {brand_name}'s customer demographics. Include information such as age range, gender, income level, interests, and buying behaviors. Write under 120 words. Remove hyphen."
         elif c_type == 'Competitors':
             prompt = f"Write about the main competitors of {brand_name}. Explain how they are different or better than {brand_name}. Include information on their strengths, weaknesses, and unique selling propositions. Write under 120 words"
         elif c_type == 'Collaborators':
